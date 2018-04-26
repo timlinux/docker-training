@@ -1,0 +1,22 @@
+version: "3"
+
+services:
+  pyserve:
+    image: timlinux/docker-training:latest
+    volumes:
+      - data:/home
+    restart: unless-stopped
+    ports:
+      - "8000:8000"
+    user: root
+
+  wget-show:
+    build:
+      context: . 
+      dockerfile: Dockerfile-wget
+    hostname: wget
+    links:
+      - pyserve:pyserve
+volumes:
+  data:
+
